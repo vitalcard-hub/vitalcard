@@ -1,0 +1,17 @@
+{
+  "name": "VitalCard — Mi Hoja de Vida de Salud",
+  "short_name": "VitalCard",
+  "description": "Ficha médica de emergencia universal, guardada solo en tu dispositivo.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F7F7F5",
+  "theme_color": "#14181C",
+  "orientation": "portrait",
+  "lang": "es",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

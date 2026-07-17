@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VitalCard — Mi Hoja de Vida de Salud</title>
+<meta name="description" content="Tu ficha médica de emergencia, siempre contigo, en cualquier idioma.">
+<meta name="theme-color" content="#14181C">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <div class="brand" id="brand-title">VitalCard</div>
+    <button class="lang-pill" id="lang-pill">🌐 <span id="lang-pill-label">ES</span></button>
+  </div>
+
+  <div class="screen" id="screen-card"></div>
+  <div class="screen hidden" id="screen-edit"></div>
+
+  <div class="install-banner hidden" id="install-banner">
+    <span>📲 Instala esta app en tu pantalla de inicio</span>
+    <button id="install-btn">Instalar</button>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="nav-btn active" data-screen="card"><span class="nav-icon">🪪</span>Tarjeta</button>
+    <button class="nav-btn" data-screen="edit"><span class="nav-icon">✏️</span>Editar</button>
+  </div>
+</div>
+
+<div class="doctor-mode" id="doctor-mode" style="display:none;"></div>
+
+<div class="modal-backdrop hidden" id="qr-modal">
+  <div class="modal-card">
+    <h3>QR de Emergencia</h3>
+    <div id="qr-canvas-wrap"></div>
+    <p>Cualquier lector de QR (o la cámara del celular) puede leer esto sin internet. Muestra lo esencial: tipo de sangre, alergias, medicamentos y contacto de emergencia.</p>
+    <button class="btn primary" id="qr-close" style="margin-top:10px;">Cerrar</button>
+  </div>
+</div>
+
+<div class="modal-backdrop hidden" id="pin-modal">
+  <div class="modal-card">
+    <h3>🔒 PIN</h3>
+    <p style="margin-top:-6px;">Ingresa tu PIN para editar los datos.</p>
+    <div class="field"><input type="text" inputmode="numeric" maxlength="6" id="pin-input" placeholder="••••" style="text-align:center;font-size:22px;letter-spacing:6px;font-family:var(--mono);"></div>
+    <p style="color:var(--alert);min-height:16px;font-weight:600;" id="pin-error"></p>
+    <div class="action-row">
+      <button class="btn" id="pin-cancel">Cancelar</button>
+      <button class="btn primary" id="pin-confirm">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="dictionary.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
