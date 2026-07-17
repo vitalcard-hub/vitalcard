@@ -358,3 +358,57 @@ a{ color: var(--info); }
 }
 
 :focus-visible{ outline: 2.5px solid var(--info); outline-offset: 2px; }
+
+/* ---------------- Print card (wallet + sticker) ---------------- */
+.print-only{ display:none; }
+
+.print-card{
+  box-sizing: border-box;
+  border: 1.5px dashed #999;
+  border-radius: 3mm;
+  padding: 3mm 4mm;
+  color: #14181C;
+  background: #fff;
+  font-family: var(--body);
+  position: relative;
+  page-break-inside: avoid;
+}
+.print-card.wallet{
+  width: 85.6mm; height: 53.98mm;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.print-card.sticker{
+  width: 58mm; height: 58mm;
+  display:flex; flex-direction:column; align-items:center; text-align:center; justify-content:space-between;
+  border-radius: 6mm;
+}
+.pc-cut-label{
+  position:absolute; top:-4mm; left:0; font-size: 7px; color:#999; font-family: var(--mono);
+}
+.pc-top{ display:flex; justify-content:space-between; align-items:flex-start; }
+.pc-brand{ font-family: var(--display); font-weight:700; font-size: 10px; text-transform:uppercase; letter-spacing:0.5px; }
+.pc-blood{ font-family: var(--mono); font-weight:700; font-size: 15px; color:#C81E1E; border: 1px solid #C81E1E; border-radius: 2mm; padding: 0.5mm 2mm; }
+.pc-name{ font-family: var(--display); font-weight:700; font-size: 13px; margin-top: 1mm; }
+.pc-meta{ font-size: 7.5px; color:#555; }
+.pc-row{ font-size: 8px; margin-top: 1mm; line-height:1.35; }
+.pc-row b{ color:#C81E1E; }
+.pc-bottom{ display:flex; justify-content:space-between; align-items:flex-end; gap: 3mm; }
+.pc-qr img, .pc-qr canvas{ width: 15mm; height:15mm; }
+.pc-scan-label{ font-size: 6px; color:#777; max-width: 24mm; }
+.pc-phone{ font-size: 8px; font-weight:700; }
+
+.print-card.sticker .pc-blood{ font-size: 22px; padding: 1mm 3mm; }
+.print-card.sticker .pc-qr img, .print-card.sticker .pc-qr canvas{ width: 18mm; height: 18mm; }
+.print-card.sticker .pc-name{ font-size: 10px; }
+
+@media print{
+  @page{ size: auto; margin: 10mm; }
+  body *{ visibility: hidden; }
+  #print-sheet, #print-sheet *{ visibility: visible; }
+  #print-sheet{
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 10mm;
+    position: absolute; top:0; left:0;
+  }
+}

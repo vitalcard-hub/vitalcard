@@ -36,6 +36,11 @@ const UI = {
   doctorMode: { es:'Modo médico (pantalla completa)', en:'Doctor mode (full screen)', pt:'Modo médico (tela cheia)', fr:'Mode médecin (plein écran)', de:'Arztmodus (Vollbild)', zh:'医生模式（全屏）', ar:'وضع الطبيب (ملء الشاشة)', hi:'डॉक्टर मोड (पूर्ण स्क्रीन)' },
   showQR: { es:'Mostrar código QR', en:'Show QR code', pt:'Mostrar código QR', fr:'Afficher le code QR', de:'QR-Code anzeigen', zh:'显示二维码', ar:'إظهار رمز QR', hi:'QR कोड दिखाएँ' },
   dataOnDevice: { es:'Tus datos solo están en este dispositivo. Nadie más los ve, ningún servidor los guarda.', en:'Your data lives only on this device. No one else sees it, no server stores it.', pt:'Seus dados ficam apenas neste dispositivo. Ninguém mais os vê, nenhum servidor os armazena.', fr:"Vos données restent uniquement sur cet appareil. Personne d'autre ne les voit, aucun serveur ne les stocke.", de:'Ihre Daten befinden sich nur auf diesem Gerät. Niemand sonst sieht sie, kein Server speichert sie.', zh:'您的数据仅存储在此设备上，不会上传到任何服务器。', ar:'بياناتك موجودة فقط على هذا الجهاز. لا يراها أحد آخر ولا يخزنها أي خادم.', hi:'आपका डेटा केवल इस डिवाइस पर है। कोई भी सर्वर इसे संग्रहीत नहीं करता।' },
+  printCard: { es:'Imprimir tarjeta física', en:'Print physical card', pt:'Imprimir cartão físico', fr:'Imprimer la carte physique', de:'Physische Karte drucken', zh:'打印实体卡', ar:'طباعة البطاقة الورقية', hi:'भौतिक कार्ड प्रिंट करें' },
+  walletCard: { es:'Tarjeta para billetera', en:'Wallet card', pt:'Cartão para carteira', fr:'Carte pour portefeuille', de:'Karte für Geldbörse', zh:'钱包卡', ar:'بطاقة للمحفظة', hi:'वॉलेट कार्ड' },
+  stickerBack: { es:'Sticker para el reverso del celular', en:'Sticker for phone back', pt:'Adesivo para o verso do celular', fr:'Autocollant pour le dos du téléphone', de:'Aufkleber für die Handyrückseite', zh:'手机背面贴纸', ar:'ملصق لظهر الهاتف', hi:'फोन के पीछे के लिए स्टिकर' },
+  cutHere: { es:'✂ cortar aquí', en:'✂ cut here', pt:'✂ cortar aqui', fr:'✂ couper ici', de:'✂ hier schneiden', zh:'✂ 剪裁线', ar:'✂ اقطع هنا', hi:'✂ यहाँ काटें' },
+  scanForFull: { es:'Escanear para ficha completa', en:'Scan for full record', pt:'Escanear para ficha completa', fr:'Scanner pour le dossier complet', de:'Scannen für vollständigen Datensatz', zh:'扫描查看完整记录', ar:'امسح للحصول على السجل الكامل', hi:'पूर्ण रिकॉर्ड के लिए स्कैन करें' },
 };
 
 // Alergias comunes (clave -> traducciones + icono)

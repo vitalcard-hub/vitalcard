@@ -123,10 +123,14 @@ function renderCardScreen(){
     <div class="action-row">
       <button class="btn primary" id="btn-show-qr">▦ ${ui('showQR')}</button>
     </div>
+    <div class="action-row">
+      <button class="btn" id="btn-print-card">🖨️ ${ui('printCard')}</button>
+    </div>
   `;
 
   document.getElementById('btn-doctor-mode').onclick = openDoctorMode;
   document.getElementById('btn-show-qr').onclick = openQRModal;
+  document.getElementById('btn-print-card').onclick = openPrintCard;
 }
 
 /* ---------------- Doctor mode (full screen, language-agnostic) ---------------- */
@@ -215,6 +219,65 @@ function openQRModal(){
   } else {
     new QRCode(wrap, { text: payload, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.M });
   }
+}
+
+/* ---------------- Print card (wallet + sticker) ---------------- */
+function buildShortQRPayload(){
+  // Versión más corta para que el QR quede menos denso y se escanee bien a tamaño pequeño impreso.
+  const lines = [];
+  lines.push(`${profile.name||'?'} | ${t(UI,'bloodType','en')}:${profile.bloodType}`);
+  lines.push(`ALLERGIES: ${profile.allergies.length ? profile.allergies.map(a=>a.key?t(ALLERGY_DICT,a.key,'en'):a.custom).join(', ') : 'NONE KNOWN'}`);
+  if(profile.medications.length) lines.push(`MEDS: ${profile.medications.map(m=>m.name).join(', ')}`);
+  if(profile.emergencyContact.name) lines.push(`ICE: ${profile.emergencyContact.name} ${profile.emergencyContact.phone}`);
+  return lines.join('\n');
+}
+
+function pcAllergyLine(){
+  if(!profile.allergies.length) return `<span>${ui('noAllergies')}</span>`;
+  return profile.allergies.map(a => escapeHTML(a.key?t(ALLERGY_DICT,a.key,lang):a.custom)).join(', ');
+}
+function pcAllergyLineEN(){
+  if(!profile.allergies.length) return 'None known';
+  return profile.allergies.map(a => escapeHTML(a.key?t(ALLERGY_DICT,a.key,'en'):a.custom)).join(', ');
+}
+
+function openPrintCard(){
+  const sheet = document.getElementById('print-sheet');
+  const payload = buildShortQRPayload();
+
+  sheet.innerHTML = `
+    <div class="print-card wallet">
+      <span class="pc-cut-label">${ui('walletCard')} — ${ui('cutHere')}</span>
+      <div class="pc-top">
+        <div>
+          <div class="pc-brand">VitalCard 🩺</div>
+          <div class="pc-name">${escapeHTML(profile.name)||'—'}</div>
+          <div class="pc-meta">${profile.dob||'—'} · ${escapeHTML(profile.sex)||'—'}</div>
+        </div>
+        <div class="pc-blood">${profile.bloodType}</div>
+      </div>
+      <div class="pc-row"><b>${ui('allergies')}/EN:</b> ${pcAllergyLine()} ${lang!=='en'?'/ '+pcAllergyLineEN():''}</div>
+      <div class="pc-bottom">
+        <div class="pc-phone">${profile.emergencyContact.name?`📞 ${escapeHTML(profile.emergencyContact.phone)}`:''}</div>
+        <div class="pc-qr" id="pc-qr-wallet"></div>
+      </div>
+    </div>
+
+    <div class="print-card sticker">
+      <span class="pc-cut-label">${ui('stickerBack')} — ${ui('cutHere')}</span>
+      <div class="pc-brand">VitalCard 🩺</div>
+      <div class="pc-blood">${profile.bloodType}</div>
+      <div class="pc-name">${escapeHTML(profile.name)||'—'}</div>
+      <div class="pc-row"><b>${ui('allergies')}:</b><br>${pcAllergyLine()}</div>
+      <div class="pc-qr" id="pc-qr-sticker"></div>
+      <div class="pc-scan-label">${ui('scanForFull')} / ${t(UI,'scanForFull','en')}</div>
+    </div>
+  `;
+
+  new QRCode(document.getElementById('pc-qr-wallet'), { text: payload, width: 90, height: 90, correctLevel: QRCode.CorrectLevel.M });
+  new QRCode(document.getElementById('pc-qr-sticker'), { text: payload, width: 110, height: 110, correctLevel: QRCode.CorrectLevel.M });
+
+  setTimeout(() => window.print(), 150);
 }
 
 /* ---------------- Edit screen ---------------- */
