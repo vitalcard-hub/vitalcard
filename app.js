@@ -501,20 +501,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Install prompt handling
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    document.getElementById('install-banner').classList.remove('hidden');
-  });
-  const installBtn = document.getElementById('install-btn');
-  if(installBtn){
-    installBtn.onclick = async () => {
-      if(!deferredPrompt) return;
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      document.getElementById('install-banner').classList.add('hidden');
-    };
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isInStandaloneMode = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+  const banner = document.getElementById('install-banner');
+
+  if(isIOS && !isInStandaloneMode){
+    // Safari no dispara beforeinstallprompt: mostramos instrucciones manuales.
+    banner.innerHTML = `
+      <span>📲 ${lang==='es'
+        ? 'Para instalar: toca compartir (⬆️) abajo y elige "Añadir a pantalla de inicio"'
+        : 'To install: tap Share (⬆️) below and choose "Add to Home Screen"'}</span>
+    `;
+    banner.classList.remove('hidden');
+  } else if(!isInStandaloneMode) {
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      banner.innerHTML = `<span>📲 ${lang==='es'?'Instala esta app en tu pantalla de inicio':'Install this app on your home screen'}</span><button id="install-btn">${lang==='es'?'Instalar':'Install'}</button>`;
+      banner.classList.remove('hidden');
+      document.getElementById('install-btn').onclick = async () => {
+        if(!deferredPrompt) return;
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        banner.classList.add('hidden');
+      };
+    });
   }
+
 });

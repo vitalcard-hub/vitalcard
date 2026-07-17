@@ -1,7 +1,7 @@
 // service-worker.js
 // Sube CACHE_VERSION cada vez que publiques cambios para forzar la actualización
 // en los celulares de los usuarios la próxima vez que abran la app con internet.
-const CACHE_VERSION = 'vitalcard-v1';
+const CACHE_VERSION = 'vitalcard-v2';
 const CORE_ASSETS = [
   './',
   './index.html',
